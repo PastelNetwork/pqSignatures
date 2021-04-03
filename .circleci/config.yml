@@ -3,8 +3,9 @@ version: 2.1
 jobs:
   build:
     working_directory: ~/repo
-    docker:
-      - image: circleci/golang:1.16.2
+    executor:
+      name: go/default
+      tag: '1.15'
     steps:
       - checkout
       - restore_cache:
@@ -29,3 +30,9 @@ jobs:
           command: go build -v
       - store_artifacts:
           path: ./pqSignatures
+orbs:
+  go: circleci/go@1.6.0
+workflows:
+  main:
+    jobs:
+      - build
