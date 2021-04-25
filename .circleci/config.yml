@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/repo
     docker:
-      - image: circleci/golang:1.16.2
+      - image: maxhora/zig-go
     steps:
       - checkout
       - restore_cache:
@@ -26,6 +26,6 @@ jobs:
           path: /tmp/test-reports
       - run:
           name: Build binary
-          command: go build -v ./cmd/pqsignatures
+          command: CGO_ENABLED=1 GOOS=linux GOARCH=amd64 CC="zcc-linux" CXX="zxx-linux" go build --tags extended -v ./cmd/pqsignatures
       - store_artifacts:
           path: ./pqsignatures
