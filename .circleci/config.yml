@@ -29,4 +29,6 @@ jobs:
           
       - store_artifacts:
           path: ./pqsignatures.exe
+
+      - store_artifacts:
           path: ./pqsignatures
